@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>银行咨询 · 3D 仿真</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font:14px system-ui;color:#193a42;background:#f1f6f7}
+header{height:78px;padding:12px 20px;background:#fff;border-bottom:1px solid #d7e5e7}h1{font-size:19px;margin:0 0 5px}
+main{display:grid;grid-template-columns:minmax(0,1fr) 360px;height:calc(100vh - 78px)}iframe{width:100%;height:100%;border:0}
+aside{padding:16px;overflow:auto;border-left:1px solid #d7e5e7}input,select,button{font:inherit;padding:9px;border:1px solid #bed3d5;border-radius:6px;max-width:100%}
+input{width:100%}button{cursor:pointer;background:#147c79;color:white;margin:6px 4px 6px 0}button:disabled{opacity:.45;cursor:default}
+label{display:block;margin:10px 0}p{line-height:1.6}.hint{color:#5f777e;font-size:12px}#log{height:30vh;overflow:auto;background:white;padding:10px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}#log div{margin:0 0 9px}
+audio{width:100%;margin:10px 0}#status{font-weight:600} @media(max-width:900px){main{display:flex;flex-direction:column;height:auto}iframe{height:70vh}aside{width:100%}}
+</style>
+<header><h1>银行咨询 · 3D 仿真</h1><span id="status">等待人物加载</span></header>
+<main><iframe id="human" src="/bank/" title="银行咨询场景" allow="autoplay"></iframe><aside>
+<label>对话模式 <select id="mode"><option value="auto">自动：机器人与顾客对话</option><option value="manual">手动：我扮演机器人</option></select></label>
+<label>大脑地址<input id="url" value="ws://localhost:8765"></label>
+<label><input id="vision-agent" type="checkbox" style="width:auto"> 启用视觉辅助动作决策</label>
+<p class="hint">在对话决策前、行走结束或动作失败后观察人物视野，会调用 GLM-4.6V。视觉不可用时继续使用原有状态反馈。</p>
+<label>顾客 <select id="persona"><option value="wang">王阿姨</option><option value="li">小李</option><option value="zhang">张先生</option></select></label>
+<button id="connect" disabled>开始自动对话</button><button id="pause" disabled>暂停</button><button id="disconnect" disabled>结束</button>
+<p class="hint">机器人引导顾客咨询、取号、等叫号、走到柜台。行走由关节与地面接触驱动，速度较慢。取号为环境逻辑，等待时站立。</p>
+<label>物理仿真速度 <select id="speed"><option value="1">1×</option><option value="4">4×</option><option value="8">8×</option></select></label>
+<label>行走伴随动作 <select id="motion-reference"><option value="1">真人参考摆臂与躯干协调</option><option value="0">关闭伴随动作</option></select></label>
+<p class="hint">倍速推进相同的物理步长；实际速度取决于电脑性能。</p><pre id="physical" style="white-space:pre-wrap"></pre>
+<button id="reset">重置场景（结束连接后）</button>
+<form id="chat" hidden><label>你扮演服务机器人<input id="text" placeholder="请抬一下右手，然后告诉我您要办什么业务" autocomplete="off"></label><button id="send" disabled>发送</button></form>
+<p id="speaker">等待开始</p><audio id="audio" controls></audio><button id="skip-audio" hidden>跳过本句语音</button>
+<p class="hint">若自动播放受限，点击播放器继续。暂停会冻结人物、暂停语音，并保留已返回的回答供继续播放。</p>
+<details><summary>本地动作检查（不调用模型）</summary><button data-action="wave">挥手</button><button data-action="nod">点头</button><button data-action="shake_head">摇头</button><button data-action="hand_over">伸手递物</button><button data-action="take">伸手接物</button><button data-action="look_at" data-target="robot">向左转头</button><button data-action="look_at" data-target="help_desk">向右转头</button><button data-action="walk_to" data-target="help_desk">走到咨询台</button><button data-action="walk_to" data-target="ticket_machine">走到取号机</button><button data-action="walk_to" data-target="waiting_area">走到等候区</button><button data-action="walk_to" data-target="counter_1">走到1号柜台</button></details>
+<p class="hint">到达需实际位置与朝向稳定。行走和取号结果会通知大脑继续决策；小动作只记录反馈。</p>
+<details><summary>咨询台途中障碍测试</summary>
+<label>闭环测试场景 <select id="navigation-scenario"><option value="normal">正常通行（无临时路障）</option><option value="detour" selected>双障碍绕行</option><option value="blocked">完全堵路</option></select></label>
+<button id="navigation-load">加载场景（再连接大脑）</button>
+<p class="hint">加载后连接大脑：实际到达或失败会回传；局部恢复期间保持人物侧控制，失败后由大脑决定求助、换目标或放弃。移除堵路障碍后，身体重新观测确认可达才允许重试。</p>
+<p class="hint">双障碍场景使用20厘米红色路障和5厘米黄色路障；完全堵路场景横断通道。只测人物时点击下面的按钮；测试大脑闭环时先加载场景，再连接大脑。默认不调用 VLM。</p>
+<button id="obstacle-start">只测试人物行走</button><button id="obstacle-remove" disabled>移除路障（可选扰动）</button>
+<p id="obstacle-status" role="status">尚未开始</p>
+</details>
+<div id="log" role="log" aria-live="polite"></div>
+<details id="vision-panel"><summary>视觉检查 · GLM-4.6V</summary>
+<p class="hint">手动截图验证，不控制人物。点击识别或对比会调用视觉 API；不用启动大脑对话。</p>
+<label>截图视角 <select id="vision-view"><option value="person">人物视角</option><option value="observer">当前旁观视角</option></select></label>
+<label>观察问题<input id="vision-question" maxlength="1000" value="识别可见对象；有两张图时比较人物位置和手臂姿态变化，看不清请说明。"></label>
+<button id="vision-baseline">保存动作前截图</button>
+<button id="vision-single">识别当前画面</button>
+<button id="vision-compare">对比动作前后</button>
+<p id="vision-status" role="status">等待截图</p>
+<div id="vision-images" style="display:flex;gap:4px"></div>
+<pre id="vision-result" style="white-space:pre-wrap;overflow-wrap:anywhere"></pre>
+<p class="hint">人物视角跟随头部；旁观视角用于观察全身。对比期间请保持相机视角一致。结果仅为视觉判断，不能替代物理完成判定。</p>
+</details>
+</aside></main><script type="module" src="/bridge.mjs"></script></html>

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+*.tsbuildinfo
+.npm-cache/
+# Licensed scan sources and locally prepared runtime models are not CC0 assets.
+artifacts/scanned-private/
+public/models/scanned-private/

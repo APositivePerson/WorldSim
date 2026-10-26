@@ -1,0 +1,21 @@
+{
+  "id":"ankle-pilot-v1",
+  "scope":"RUB participant 1 effective aggregate ankle parameters; fixed geometry and fixed optimal fiber lengths",
+  "optimizer":{"passes":6,"initialStepFraction":0.25,"priorWeight":0.02,"torqueScaleNm":20},
+  "mask":{"warmupSeconds":1,"maxAnkleAngleRad":0.55,"passiveMaxNormalizedEmg":0.05},
+  "parameters":{
+    "slackScale":{"initial":1,"range":[0.75,1.05],"unit":"1","stage":"passive"},
+    "passiveScale":{"initial":0.08,"range":[0.005,0.8],"unit":"1","stage":"passive"},
+    "measurementBiasNm":{"initial":0,"range":[-40,40],"unit":"N m","stage":"passive"},
+    "forceScale":{"initial":1,"range":[0.1,1.4],"unit":"1","stage":"active"},
+    "reflexGainScale":{"initial":1,"range":[0,3],"unit":"1","stage":"reflex"},
+    "reflexDelaySeconds":{"initial":0.012,"range":[0.004,0.06],"unit":"s","stage":"reflex"}
+  },
+  "acceptance":{
+    "policy":"predeclared descriptive pilot gates; engineering thresholds, not physiological validation",
+    "maxHoldoutTorqueRmseNm":15,
+    "maxRelativeRegression":0.05,
+    "requiresReflexDataForNeuralCalibration":true,
+    "requiresTimedGaitAndEmgForDynamicGaitValidation":true
+  }
+}

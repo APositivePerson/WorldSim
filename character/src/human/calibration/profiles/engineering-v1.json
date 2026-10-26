@@ -1,0 +1,1171 @@
+{
+  "id": "engineering-v1",
+  "version": 1,
+  "status": "uncalibrated-engineering-reference",
+  "appliesTo": {
+    "population": "generic reduced adult humanoid; not a measured person",
+    "massKg": 65.41,
+    "sideSymmetry": true,
+    "geometry": "constant signed dLmt/dq; model ankle positive plantarflexion; knee positive flexion; calibration canonical ankle positive dorsiflexion"
+  },
+  "sources": {
+    "engineering": {
+      "title": "Existing HumanSimulation experimental defaults, preserved for comparison",
+      "url": null,
+      "evidence": "engineering assumption, not physiological measurement"
+    },
+    "spindle": {
+      "title": "Mileusnic et al. 2006 (structural inspiration only; not fitted coefficients)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16672301/",
+      "evidence": "reduced model structure"
+    }
+  },
+  "fields": {
+    "muscles.*.force": {
+      "unit": "N",
+      "range": [
+        1,
+        10000
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "all reduced leg groups"
+    },
+    "muscles.*.optimal": {
+      "unit": "m",
+      "range": [
+        0.02,
+        0.4
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "all reduced leg groups"
+    },
+    "muscles.*.slack": {
+      "unit": "m",
+      "range": [
+        0.01,
+        0.6
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "all reduced leg groups"
+    },
+    "muscles.*.coefficients": {
+      "unit": "m/rad",
+      "range": [
+        -0.1,
+        0.1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "all reduced leg groups"
+    },
+    "hill.activationRise": {
+      "unit": "s",
+      "range": [
+        0.003,
+        0.08
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "hill"
+    },
+    "hill.activationFall": {
+      "unit": "s",
+      "range": [
+        0.005,
+        0.15
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "hill"
+    },
+    "hill.tendonStrainAtUnitForce": {
+      "unit": "1",
+      "range": [
+        0.015,
+        0.1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "hill"
+    },
+    "hill.tendonForceCap": {
+      "unit": "1",
+      "range": [
+        0,
+        12.5
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "hill"
+    },
+    "hill.forceLengthWidth": {
+      "unit": "1",
+      "range": [
+        0,
+        2.5
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "hill"
+    },
+    "hill.maxVelocity": {
+      "unit": "optimal fiber lengths/s",
+      "range": [
+        0,
+        50
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "hill"
+    },
+    "hill.shorteningShape": {
+      "unit": "1",
+      "range": [
+        0,
+        1.25
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "hill"
+    },
+    "hill.eccentricExtra": {
+      "unit": "1",
+      "range": [
+        0,
+        3.0
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "hill"
+    },
+    "hill.eccentricVelocityScale": {
+      "unit": "1",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "hill"
+    },
+    "hill.passiveScale": {
+      "unit": "1",
+      "range": [
+        0.001,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "hill"
+    },
+    "spindle.polarRest": {
+      "unit": "normalized intrafusal length",
+      "range": [
+        0,
+        4.8
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.sensoryRest": {
+      "unit": "normalized intrafusal length",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.gammaTau": {
+      "unit": "s",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.betaBase": {
+      "unit": "normalized force / (normalized length/s)^0.3",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.betaGamma": {
+      "unit": "normalized force / (normalized length/s)^0.3",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.activeGamma": {
+      "unit": "normalized intrafusal force",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.sensoryStiffness": {
+      "unit": "normalized force / normalized length",
+      "range": [
+        0,
+        50
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.polarStiffness": {
+      "unit": "normalized force / normalized length",
+      "range": [
+        0,
+        1.25
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.viscosityExponent": {
+      "unit": "1",
+      "range": [
+        0,
+        1.5
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.iaBias": {
+      "unit": "spikes/s",
+      "range": [
+        0,
+        175
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.iaWeights": {
+      "unit": "spikes/s / normalized intrafusal force",
+      "range": [
+        0,
+        4500
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.iiBias": {
+      "unit": "spikes/s",
+      "range": [
+        0,
+        100
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.iiWeights": {
+      "unit": "spikes/s / normalized intrafusal force",
+      "range": [
+        0,
+        5500
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.iaMax": {
+      "unit": "spikes/s",
+      "range": [
+        0,
+        2500
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "spindle.iiMax": {
+      "unit": "spikes/s",
+      "range": [
+        0,
+        1250
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "spindle"
+    },
+    "reflex.delay": {
+      "unit": "s",
+      "range": [
+        0.004,
+        0.08
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.iaGain": {
+      "unit": "normalized excitation",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.iiGain": {
+      "unit": "normalized excitation",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.inhibitionGain": {
+      "unit": "normalized excitation",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.ibGain": {
+      "unit": "normalized excitation",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.limit": {
+      "unit": "normalized excitation",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.iaReference": {
+      "unit": "spikes/s",
+      "range": [
+        0,
+        300
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.iiReference": {
+      "unit": "spikes/s",
+      "range": [
+        0,
+        175
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.rateScale": {
+      "unit": "spikes/s",
+      "range": [
+        0,
+        500
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.gammaStatic": {
+      "unit": "1",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.gammaDynamic": {
+      "unit": "1",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.staticAlphaCoupling": {
+      "unit": "1",
+      "range": [
+        0,
+        2.0
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "reflex.dynamicAlphaCoupling": {
+      "unit": "1",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "reflex"
+    },
+    "eyes.force": {
+      "unit": "N",
+      "range": [
+        0.001,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.activationRise": {
+      "unit": "s",
+      "range": [
+        0.003,
+        0.08
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.activationFall": {
+      "unit": "s",
+      "range": [
+        0.005,
+        0.15
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.retinalGain": {
+      "unit": "1/s",
+      "range": [
+        0,
+        45
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.relaxationGain": {
+      "unit": "1/s",
+      "range": [
+        0,
+        40
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.maxCommandRate": {
+      "unit": "rad/s",
+      "range": [
+        0,
+        15
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.positionGain": {
+      "unit": "N m/rad",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.velocityGain": {
+      "unit": "N m s/rad",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.radius": {
+      "unit": "m",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.mass": {
+      "unit": "kg",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.damping": {
+      "unit": "N m s/rad",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.stiffness": {
+      "unit": "N m/rad",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "eyes.armature": {
+      "unit": "kg m^2",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "eyes"
+    },
+    "muscles.*.referenceLength": {
+      "unit": "m",
+      "range": [
+        0.03,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "neutral muscle-tendon length; independent of fitted optimal/slack lengths"
+    },
+    "hill.activeForceScale": {
+      "unit": "1",
+      "range": [
+        0.05,
+        2
+      ],
+      "source": "engineering",
+      "rangeMeaning": "effective active force multiplier, confounded with EMG-to-excitation mapping",
+      "appliesTo": "muscle mechanics"
+    },
+    "ankleHill.activationRise": {
+      "unit": "s",
+      "range": [
+        0.003,
+        0.08
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "ankle groups only"
+    },
+    "ankleHill.activationFall": {
+      "unit": "s",
+      "range": [
+        0.005,
+        0.15
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "ankle groups only"
+    },
+    "ankleHill.tendonStrainAtUnitForce": {
+      "unit": "1",
+      "range": [
+        0.015,
+        0.1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "ankle groups only"
+    },
+    "ankleHill.tendonForceCap": {
+      "unit": "1",
+      "range": [
+        0,
+        12.5
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "ankle groups only"
+    },
+    "ankleHill.forceLengthWidth": {
+      "unit": "1",
+      "range": [
+        0,
+        2.5
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "ankle groups only"
+    },
+    "ankleHill.maxVelocity": {
+      "unit": "optimal fiber lengths/s",
+      "range": [
+        0,
+        50
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "ankle groups only"
+    },
+    "ankleHill.shorteningShape": {
+      "unit": "1",
+      "range": [
+        0,
+        1.25
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "ankle groups only"
+    },
+    "ankleHill.eccentricExtra": {
+      "unit": "1",
+      "range": [
+        0,
+        3.0
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "ankle groups only"
+    },
+    "ankleHill.eccentricVelocityScale": {
+      "unit": "1",
+      "range": [
+        0,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "ankle groups only"
+    },
+    "ankleHill.passiveScale": {
+      "unit": "1",
+      "range": [
+        0.001,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible bounds, not population confidence intervals",
+      "appliesTo": "ankle groups only"
+    },
+    "ankleHill.activeForceScale": {
+      "unit": "1",
+      "range": [
+        0.05,
+        2
+      ],
+      "source": "engineering",
+      "rangeMeaning": "effective active force multiplier, confounded with EMG-to-excitation mapping",
+      "appliesTo": "ankle groups only"
+    },
+    "eyes.center": {
+      "unit": "m",
+      "range": [
+        -0.1,
+        0.1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible geometry bounds; not individual orbital anatomy",
+      "appliesTo": "left eye coordinates, right mirrored in x"
+    },
+    "eyes.yawRange": {
+      "unit": "rad",
+      "range": [
+        -1,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible geometry bounds; not individual orbital anatomy",
+      "appliesTo": "left eye coordinates, right mirrored in x"
+    },
+    "eyes.pitchRange": {
+      "unit": "rad",
+      "range": [
+        -1,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible geometry bounds; not individual orbital anatomy",
+      "appliesTo": "left eye coordinates, right mirrored in x"
+    },
+    "eyes.torsionRange": {
+      "unit": "rad",
+      "range": [
+        -1,
+        1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "engineering admissible geometry bounds; not individual orbital anatomy",
+      "appliesTo": "left eye coordinates, right mirrored in x"
+    },
+    "eyeRoutes.*.insertion": {
+      "unit": "m",
+      "range": [
+        -0.1,
+        0.1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "fixed routing, engineering approximation, not measured anatomy",
+      "appliesTo": "left eye relative to eye center; right mirrored in x"
+    },
+    "eyeRoutes.*.pulley": {
+      "unit": "m",
+      "range": [
+        -0.1,
+        0.1
+      ],
+      "source": "engineering",
+      "rangeMeaning": "fixed routing, engineering approximation, not measured anatomy",
+      "appliesTo": "left eye relative to eye center; right mirrored in x"
+    }
+  },
+  "muscles": [
+    {
+      "name": "soleus",
+      "label": "比目鱼肌",
+      "region": "ankle",
+      "force": 5000.0,
+      "optimal": 0.12,
+      "slack": 0.22,
+      "coefficients": {
+        "ankle": -0.05
+      },
+      "referenceLength": 0.34
+    },
+    {
+      "name": "gastrocnemius",
+      "label": "腓肠肌",
+      "region": "ankle",
+      "force": 3500.0,
+      "optimal": 0.12,
+      "slack": 0.25,
+      "coefficients": {
+        "ankle": -0.045,
+        "knee": -0.02
+      },
+      "referenceLength": 0.37
+    },
+    {
+      "name": "tibialis_anterior",
+      "label": "胫骨前肌",
+      "region": "ankle",
+      "force": 2400.0,
+      "optimal": 0.1,
+      "slack": 0.2,
+      "coefficients": {
+        "ankle": 0.035,
+        "ankle_roll": -0.008
+      },
+      "referenceLength": 0.3
+    },
+    {
+      "name": "tibialis_posterior",
+      "label": "胫骨后肌",
+      "region": "ankle",
+      "force": 2400.0,
+      "optimal": 0.1,
+      "slack": 0.2,
+      "coefficients": {
+        "ankle": -0.025,
+        "ankle_roll": -0.025
+      },
+      "referenceLength": 0.3
+    },
+    {
+      "name": "peroneus_longus",
+      "label": "腓骨长肌群",
+      "region": "ankle",
+      "force": 2400.0,
+      "optimal": 0.1,
+      "slack": 0.2,
+      "coefficients": {
+        "ankle": -0.02,
+        "ankle_roll": 0.025
+      },
+      "referenceLength": 0.3
+    },
+    {
+      "name": "iliopsoas",
+      "label": "髂腰肌",
+      "region": "leg",
+      "force": 3000.0,
+      "optimal": 0.14,
+      "slack": 0.12,
+      "coefficients": {
+        "hip": 0.045
+      },
+      "referenceLength": 0.26
+    },
+    {
+      "name": "gluteus_maximus",
+      "label": "臀大肌",
+      "region": "leg",
+      "force": 4000.0,
+      "optimal": 0.14,
+      "slack": 0.12,
+      "coefficients": {
+        "hip": -0.055
+      },
+      "referenceLength": 0.26
+    },
+    {
+      "name": "gluteus_medius",
+      "label": "臀中肌群",
+      "region": "leg",
+      "force": 3000.0,
+      "optimal": 0.12,
+      "slack": 0.1,
+      "coefficients": {
+        "hip_abduction": 0.05
+      },
+      "referenceLength": 0.22
+    },
+    {
+      "name": "adductors",
+      "label": "内收肌群",
+      "region": "leg",
+      "force": 3000.0,
+      "optimal": 0.12,
+      "slack": 0.1,
+      "coefficients": {
+        "hip_abduction": -0.05
+      },
+      "referenceLength": 0.22
+    },
+    {
+      "name": "hamstrings",
+      "label": "双关节腘绳肌",
+      "region": "leg",
+      "force": 3000.0,
+      "optimal": 0.16,
+      "slack": 0.16,
+      "coefficients": {
+        "hip": -0.045,
+        "knee": -0.035
+      },
+      "referenceLength": 0.32
+    },
+    {
+      "name": "rectus_femoris",
+      "label": "股直肌",
+      "region": "leg",
+      "force": 3000.0,
+      "optimal": 0.16,
+      "slack": 0.16,
+      "coefficients": {
+        "hip": 0.035,
+        "knee": 0.04
+      },
+      "referenceLength": 0.32
+    },
+    {
+      "name": "vasti",
+      "label": "股广肌群",
+      "region": "leg",
+      "force": 5000.0,
+      "optimal": 0.12,
+      "slack": 0.16,
+      "coefficients": {
+        "knee": 0.045
+      },
+      "referenceLength": 0.28
+    },
+    {
+      "name": "biceps_short",
+      "label": "股二头肌短头",
+      "region": "leg",
+      "force": 2200.0,
+      "optimal": 0.12,
+      "slack": 0.16,
+      "coefficients": {
+        "knee": -0.035
+      },
+      "referenceLength": 0.28
+    },
+    {
+      "name": "external_rotators",
+      "label": "髋外旋肌群",
+      "region": "leg",
+      "force": 2500.0,
+      "optimal": 0.12,
+      "slack": 0.1,
+      "coefficients": {
+        "hip_yaw": -0.03
+      },
+      "referenceLength": 0.22
+    },
+    {
+      "name": "internal_rotators",
+      "label": "髋内旋肌群",
+      "region": "leg",
+      "force": 2500.0,
+      "optimal": 0.12,
+      "slack": 0.1,
+      "coefficients": {
+        "hip_yaw": 0.03
+      },
+      "referenceLength": 0.22
+    },
+    {
+      "name": "toe_flexors",
+      "label": "趾屈肌群",
+      "region": "leg",
+      "force": 3000.0,
+      "optimal": 0.1,
+      "slack": 0.18,
+      "coefficients": {
+        "toe_flex": -0.015
+      },
+      "referenceLength": 0.28
+    },
+    {
+      "name": "toe_extensors",
+      "label": "趾伸肌群",
+      "region": "leg",
+      "force": 3000.0,
+      "optimal": 0.1,
+      "slack": 0.18,
+      "coefficients": {
+        "toe_flex": 0.015
+      },
+      "referenceLength": 0.28
+    }
+  ],
+  "hill": {
+    "activationRise": 0.012,
+    "activationFall": 0.035,
+    "tendonStrainAtUnitForce": 0.04,
+    "tendonForceCap": 2.5,
+    "forceLengthWidth": 0.5,
+    "maxVelocity": 10,
+    "shorteningShape": 0.25,
+    "eccentricExtra": 0.6,
+    "eccentricVelocityScale": 0.15,
+    "passiveScale": 0.08,
+    "activeForceScale": 1
+  },
+  "spindle": {
+    "polarRest": 0.96,
+    "sensoryRest": 0.04,
+    "gammaTau": [
+      0.04,
+      0.1,
+      0.08
+    ],
+    "betaBase": [
+      0.03,
+      0.01,
+      0.005
+    ],
+    "betaGamma": [
+      0.18,
+      0.02,
+      0.01
+    ],
+    "activeGamma": [
+      0.004,
+      0.04,
+      0.03
+    ],
+    "sensoryStiffness": 10,
+    "polarStiffness": 0.25,
+    "viscosityExponent": 0.3,
+    "iaBias": 35,
+    "iaWeights": [
+      900,
+      800,
+      600
+    ],
+    "iiBias": 20,
+    "iiWeights": [
+      0,
+      1100,
+      900
+    ],
+    "iaMax": 500,
+    "iiMax": 250
+  },
+  "reflex": {
+    "delay": 0.012,
+    "iaGain": 0.025,
+    "iiGain": 0.015,
+    "inhibitionGain": 0.01,
+    "ibGain": 0.01,
+    "limit": 0.035,
+    "iaReference": 60,
+    "iiReference": 35,
+    "rateScale": 100,
+    "gammaStatic": 0.2,
+    "gammaDynamic": 0.2,
+    "staticAlphaCoupling": 0.4,
+    "dynamicAlphaCoupling": 0.2
+  },
+  "eyes": {
+    "force": 0.08,
+    "activationRise": 0.005,
+    "activationFall": 0.015,
+    "retinalGain": 9,
+    "relaxationGain": 8,
+    "maxCommandRate": 3,
+    "positionGain": 0.004,
+    "velocityGain": 0.0001,
+    "radius": 0.012,
+    "mass": 0.0075,
+    "damping": 4e-05,
+    "stiffness": 0.00012,
+    "armature": 1e-07,
+    "center": [
+      0.035,
+      -0.075,
+      0.023
+    ],
+    "yawRange": [
+      -0.6,
+      0.6
+    ],
+    "pitchRange": [
+      -0.35,
+      0.35
+    ],
+    "torsionRange": [
+      -0.2,
+      0.2
+    ]
+  },
+  "ankleHill": {
+    "activationRise": 0.012,
+    "activationFall": 0.035,
+    "tendonStrainAtUnitForce": 0.04,
+    "tendonForceCap": 2.5,
+    "forceLengthWidth": 0.5,
+    "maxVelocity": 10,
+    "shorteningShape": 0.25,
+    "eccentricExtra": 0.6,
+    "eccentricVelocityScale": 0.15,
+    "passiveScale": 0.08,
+    "activeForceScale": 1
+  },
+  "eyeRoutes": [
+    {
+      "name": "lateral_rectus",
+      "insertion": [
+        0.009,
+        -0.007,
+        0
+      ],
+      "pulley": [
+        0.02,
+        0.025,
+        0
+      ]
+    },
+    {
+      "name": "medial_rectus",
+      "insertion": [
+        -0.009,
+        -0.007,
+        0
+      ],
+      "pulley": [
+        -0.02,
+        0.025,
+        0
+      ]
+    },
+    {
+      "name": "superior_rectus",
+      "insertion": [
+        0,
+        -0.007,
+        0.009
+      ],
+      "pulley": [
+        0,
+        0.025,
+        0.015
+      ]
+    },
+    {
+      "name": "inferior_rectus",
+      "insertion": [
+        0,
+        -0.007,
+        -0.009
+      ],
+      "pulley": [
+        0,
+        0.025,
+        -0.015
+      ]
+    },
+    {
+      "name": "superior_oblique",
+      "insertion": [
+        0.007,
+        0.002,
+        0.006
+      ],
+      "pulley": [
+        -0.02,
+        -0.014,
+        0.025
+      ]
+    },
+    {
+      "name": "inferior_oblique",
+      "insertion": [
+        0.007,
+        0.002,
+        -0.006
+      ],
+      "pulley": [
+        -0.02,
+        -0.014,
+        -0.025
+      ]
+    }
+  ]
+}

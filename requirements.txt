@@ -1,0 +1,10 @@
+openai>=1.40
+httpx[socks]>=0.27,<1
+pydantic>=2
+python-dotenv>=1.0
+pygame-ce>=2.5
+edge-tts>=7.3.1
+sherpa-onnx>=1.13
+av>=12
+numpy
+websockets>=13

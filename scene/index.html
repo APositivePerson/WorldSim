@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>银行大厅</title><style>
+*{box-sizing:border-box}body{margin:0;font:14px system-ui;color:#173d43;background:#eaf0ed}#view{position:fixed;inset:0}canvas{display:block}
+.top{position:fixed;top:20px;left:22px;right:22px;display:flex;justify-content:space-between;gap:12px;pointer-events:none}.badge{background:#ffffffec;padding:12px 16px;border-radius:12px;box-shadow:0 5px 25px #203d4010}.badge small{display:block;color:#69817e;margin-top:5px;font-size:11px}button{pointer-events:auto;border:1px solid #c8dcd5;border-radius:8px;background:white;color:#24564e;padding:10px;margin-left:5px;cursor:pointer}
+#caption{position:fixed;bottom:28px;left:8%;right:8%;background:#ffffffed;border-left:4px solid #16837a;border-radius:12px;padding:16px 20px;line-height:1.7;box-shadow:0 4px 25px #16372e15}#caption:empty{display:none}#loading{position:fixed;top:45%;left:20%;right:20%;text-align:center;background:white;padding:24px;border-radius:12px}
+.foot{position:fixed;bottom:8px;left:22px;font-size:11px;color:#637772}
+</style><div id="view"></div><div class="top"><div class="badge"><b>示例银行 · 物理行走</b><small>取号 → 等候 → 叫号 → 柜台</small><label style="pointer-events:auto">人物 <select id="avatar"><option value="procedural">程序人物</option></select></label><small id="avatar-status">程序人物</small><small id="barrier-status">正在加载路障…</small></div><div><button id="wide">大厅视角</button><button id="close">咨询视角</button><button id="barrier-view">查看路障</button></div></div>
+<div style="position:fixed;top:150px;left:22px;max-width:290px" class="badge">
+<label for="leg-drive">人物身体驱动</label>
+<select id="leg-drive" aria-label="人物身体驱动"><option value="servo">关节执行器对照</option><option value="ankle">踝部肌肉与肌梭</option><option value="full">全腿肌肉与肌梭</option></select>
+<p><label>参考行走速度 <input id="walking-speed" aria-label="参考行走速度" type="range" min="0.25" max="0.5" step="0.05" value="0.5"><output id="walking-speed-value">0.50 m/s</output></label></p>
+<p><label><input id="spindle-reflex" type="checkbox" checked>肌梭延迟反射</label> <label><input id="physical-eyes" type="checkbox" checked>物理眼球</label></p>
+<small id="body-status">正在初始化神经肌肉系统…</small>
+</div>
+<div id="loading">正在加载人物和银行场景…</div><div id="caption"></div><div class="foot">拖拽旋转 · 滚轮缩放 · 柜台与等候区为场景示意</div><script type="module" src="./main.ts"></script></html>

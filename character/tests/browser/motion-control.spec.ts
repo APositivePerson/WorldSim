@@ -1,0 +1,27 @@
+import { test, expect } from "@playwright/test";
+test('motion controls change references, contact telemetry is live and pause freezes coordination',async({page})=>{
+  test.setTimeout(120000);
+  await page.goto('/?avatar=procedural');
+  await expect(page.getByTestId('skin-status')).toContainText('92 骨骼');
+  await page.getByLabel('参考前进速度').fill('0.04');
+  await page.getByRole('button',{name:'向前行走'}).click();
+  await expect.poll(()=>page.evaluate(()=>window.human!.getState().locomotion!.steps),{timeout:50000}).toBeGreaterThanOrEqual(3);
+  await page.getByRole('button',{name:'暂停仿真'}).click();
+  const before=await page.evaluate(()=>window.human!.getState());
+  expect(before.locomotion!.motion.source).toBe('CMU 07_01');
+  expect(before.locomotion!.motion.speed).toBe(.04);
+  expect(before.locomotion!.balance.feet.some(f=>f.contact&&f.force>10)).toBe(true);
+  await expect(page.getByTestId('foot-loads')).toContainText('N');
+  await page.waitForTimeout(250);
+  const frozen=await page.evaluate(()=>window.human!.getState());
+  expect(frozen.time).toBe(before.time);expect(frozen.locomotion!.motion.phase).toBe(before.locomotion!.motion.phase);
+  expect(frozen.joints.map(j=>j.actual)).toEqual(before.joints.map(j=>j.actual));
+  await page.getByLabel('真人动作参考强度').fill('0');
+  await page.getByRole('button',{name:'继续仿真'}).click();
+  await expect.poll(()=>page.evaluate(()=>window.human!.getState().joints.find(j=>j.name==='left_shoulder_flex')!.trajectory)).toBe(0);
+  await page.getByLabel('真人动作参考强度').fill('100');
+  await expect.poll(()=>page.evaluate(()=>Math.abs(window.human!.getState().joints.find(j=>j.name==='left_shoulder_flex')!.trajectory))).toBeGreaterThan(.01);
+  await page.getByRole('button',{name:'停步并站稳'}).click();
+  await expect(page.getByTestId('gait-mode')).toHaveText('stand',{timeout:20000});
+  await expect.poll(()=>page.evaluate(()=>window.human!.getState().locomotion!.settled)).toBe(true);
+});

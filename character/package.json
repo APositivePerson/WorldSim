@@ -1,0 +1,43 @@
+{
+  "name": "human-simulation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "tsx --test tests/*.test.ts",
+    "test:browser": "playwright test",
+    "generate:avatar": "tsx scripts/generate-avatar.ts && tsx scripts/polish-avatar.ts && python3 scripts/upgrade-avatar.py",
+    "upgrade:avatar": "python3 scripts/upgrade-avatar.py",
+    "prepare:scan": "node scripts/prepare-scan.mjs && python3 scripts/pack-scan.py",
+    "prepare:motion": "python3 scripts/prepare-walk-reference.py",
+    "generate:anatomy": "tsx scripts/generate-body.ts && tsx scripts/generate-hands.ts && tsx scripts/generate-muscles.ts && tsx scripts/generate-standing-key.ts && tsx scripts/generate-neuromuscular.ts && npm run generate:avatar",
+    "review:poses": "tsx scripts/review-poses.ts",
+    "generate:neuromuscular": "tsx scripts/generate-neuromuscular.ts",
+    "prepare:calibration": "python3 scripts/calibration/prepare_data.py",
+    "calibrate:ankle": "node --import tsx scripts/calibration/run.ts && python3 scripts/calibration/render_report.py",
+    "calibration:compare": "node --import tsx scripts/calibration/compare.ts",
+    "test:calibration": "node --import tsx --test tests/calibration.test.ts"
+  },
+  "dependencies": {
+    "@mujoco/mujoco": "3.16.0",
+    "three": "^0.180.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@types/three": "^0.180.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.0",
+    "tsx": "^4.20.0",
+    "@playwright/test": "^1.56.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

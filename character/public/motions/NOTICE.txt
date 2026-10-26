@@ -1,0 +1,12 @@
+Motion reference: CMU Graphics Lab Motion Capture Database, subject 07, trial 01
+(walk, 120 Hz), https://mocap.cs.cmu.edu/subjects/07/
+Database funding: NSF EIA-0196217.
+
+This application includes an adapted, filtered cycle derived from that recording.
+Its source and converted reference are not covered by the procedural avatar's
+CC0 dedication. CMU permits research use and inclusion in commercial products;
+direct resale of the motion data, including converted data, is prohibited.
+Source terms and attribution: https://mocap.cs.cmu.edu/
+
+Original source hashes and conversion details are retained in the application
+reference metadata and in the project's assets/motions/cmu directory.

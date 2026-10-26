@@ -1,0 +1,33 @@
+{
+  "name": "bank-customer-sim",
+  "private": true,
+  "workspaces": ["character"],
+  "engines": {"node": ">=22.12.0"},
+  "scripts": {
+    "sync:human": "node scripts/sync_human.mjs --apply",
+    "check:human": "node scripts/sync_human.mjs --check",
+    "test:human-bank": "node scripts/test_human_bank.mjs",
+    "test:human-bank-arrival": "node scripts/test_human_bank.mjs --arrival",
+    "test:bank-gait": "node scripts/test_bank_gait.mjs",
+    "test:bank-eyes": "node scripts/test_bank_eyes.mjs",
+    "test:upstream-speed": "node scripts/audit_speed.mjs",
+    "test:clock": "node scripts/test_clock.mjs",
+    "test:scratch-dynamics": "node scripts/test_scratch_dynamics.mjs",
+    "test:short-gait": "node scripts/test_short_gait.mjs",
+    "test:human-bank-browser": "npm run build:scene && node tests/browser_human_bank.cjs",
+    "build:scene": "node scripts/build_bank_scene.mjs",
+    "build:character": "npm run build --workspace character",
+    "dev:character": "npm run dev --workspace character",
+    "typecheck": "tsc -p scene/tsconfig.json && tsc -p character/tsconfig.json",
+    "test:actions": "node --test tests/actions.test.mjs tests/obstacle_watch.test.mjs",
+    "test:obstacle": "node scripts/probe_physics.mjs --obstacle",
+    "test:local-navigation": "node scripts/test_local_navigation.mjs",
+    "test:navigation-loop": "node scripts/test_navigation_loop.mjs",
+    "test:obstacle-browser": "node tests/browser_obstacle.cjs",
+    "test:character": "npm test --workspace character",
+    "test:integration": "node scripts/probe_physics.mjs --integration",
+    "test:route": "node scripts/probe_physics.mjs --route",
+    "test:browser": "npm run build:scene && node tests/browser_3d.cjs && node tests/browser_auto.cjs && node tests/browser_flow.cjs && node tests/browser_integration.cjs"
+  },
+  "devDependencies": {"esbuild": "0.28.2", "@playwright/test": "^1.56.0", "typescript": "~5.9.3"}
+}

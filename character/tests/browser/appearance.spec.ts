@@ -1,0 +1,36 @@
+import { test, expect } from "@playwright/test";
+import { mkdir } from "node:fs/promises";
+
+test("skin shader compiles, detail can be compared, and solid skeleton can be inspected", async ({ page }) => {
+  await mkdir("artifacts/appearance-review", { recursive: true });
+  await page.setViewportSize({ width: 1600, height: 1100 });
+  const errors: string[] = [];
+  page.on("pageerror", e => errors.push(e.message));
+  page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
+  await page.goto("/?avatar=procedural");
+  await page.getByLabel("基座模式").selectOption("fixed");
+  await expect(page.getByTestId("skin-status")).toContainText("92 骨骼");
+  await page.getByRole("button", { name: "暂停仿真" }).click();
+  await expect(page.getByLabel("皮肤细节与柔和高光")).toBeChecked();
+  await page.getByRole("button", { name: "头肩细节" }).click();
+  const canvas = page.locator("canvas");
+  const shot = (name: string) => canvas.screenshot({ path: `artifacts/appearance-review/${name}.png` });
+  await page.getByLabel("皮肤细节与柔和高光").uncheck();
+  const plain = await shot("skin-before");
+  await page.getByLabel("皮肤细节与柔和高光").check();
+  const detailed = await shot("skin-after");
+  expect(detailed.equals(plain)).toBe(false);
+  await page.getByRole("button", { name: "默认视角" }).click();
+  await page.getByLabel("实体骨骼", { exact: true }).check();
+  await expect(page.getByLabel("表皮不透明度")).toHaveValue("18");
+  await shot("skeleton-through-skin");
+  await page.getByLabel("GLB 蒙皮外观").uncheck();
+  await shot("solid-skeleton");
+  await page.getByRole("button", { name: "右手细节" }).click();
+  await shot("hand-bones");
+  await page.getByLabel("GLB 蒙皮外观").check();
+  await page.getByLabel("实体骨骼", { exact: true }).uncheck();
+  await expect(page.getByLabel("表皮不透明度")).toHaveValue("100");
+  await shot("hand-skin");
+  expect(errors).toEqual([]);
+});

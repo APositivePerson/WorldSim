@@ -1,0 +1,2 @@
+# Optional authoring environment: CPython 3.13, isolated venv recommended.
+bpy==5.2.2

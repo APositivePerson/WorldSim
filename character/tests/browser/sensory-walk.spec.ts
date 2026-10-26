@@ -1,0 +1,26 @@
+import {test,expect} from '@playwright/test';
+test.use({video:{mode:'on',size:{width:1280,height:800}}});
+test('sensory walking, moving push, closed-eye stop and oracle handover',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.setViewportSize({width:1500,height:1000});await page.goto('/?avatar=procedural');
+ await expect(page.getByTestId('skin-status')).toContainText('GLB 已绑定');
+ await expect.poll(()=>page.evaluate(()=>window.human!.getState().time)).toBeGreaterThan(1.5);
+ await page.getByLabel('感觉控制模式').selectOption('sensory');
+ await expect.poll(()=>page.evaluate(()=>window.human!.getState().locomotion!.sensory!.estimate.uncertainty.available)).toBe(4);
+ await page.getByRole('button',{name:'向前行走'}).click();
+ await expect(page.getByTestId('gait-mode')).toHaveText('walk');
+ await expect(page.getByLabel('感觉控制模式')).toBeDisabled();
+ await expect.poll(()=>page.evaluate(()=>window.human!.getState().locomotion!.steps),{timeout:20000}).toBeGreaterThan(4);
+ await page.getByRole('button',{name:'侧推对照 · 35 N / 120 ms',exact:true}).click();
+ await expect.poll(()=>page.evaluate(()=>window.human!.getState().balancePush.count)).toBe(1);
+ await page.getByRole('button',{name:'转头并保持注视'}).click();
+ await expect.poll(()=>page.evaluate(()=>window.human!.getState().locomotion!.sensory!.gaze.yaw)).toBeLessThan(-.25);
+ await page.locator('.viewport').screenshot({path:'artifacts/sensory/walking.png'});
+ await page.getByLabel('感觉条件').selectOption('closed');
+ await expect(page.getByTestId('gait-mode')).toHaveText('stand',{timeout:20000});
+ expect(await page.evaluate(()=>window.human!.getState().locomotion!.sensory!.walking.safetyStop)).toBe(true);
+ await page.getByLabel('感觉控制模式').selectOption('oracle');
+ await expect.poll(()=>page.evaluate(()=>window.human!.getState().locomotion!.sensory)).toBeNull();
+ expect(await page.evaluate(()=>window.human!.getState().locomotion!.pelvis[2])).toBeGreaterThan(.89);
+ expect(errors).toEqual([]);const video=page.video();await page.close();await video?.saveAs('artifacts/sensory/walking.webm');
+});

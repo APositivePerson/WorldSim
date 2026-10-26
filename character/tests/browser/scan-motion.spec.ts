@@ -1,0 +1,26 @@
+import { test, expect } from "@playwright/test";
+import { existsSync } from "node:fs";
+test.use({video:"on"});
+test("scan walking and relaxed hands remain visually reviewable", async ({ page }) => {
+  test.skip(!existsSync("artifacts/scanned-private/runtime/eric.glb"), "Local scan required");
+  test.setTimeout(180000);
+  await page.setViewportSize({width:1600,height:1100});
+  await page.goto("/");
+  await expect(page.getByTestId("skin-status")).toContainText("真人扫描",{timeout:45000});
+  await page.getByRole("button",{name:"向前行走"}).click();
+  const start=await page.evaluate(()=>window.human!.getState().time);
+  await expect.poll(()=>page.evaluate(()=>window.human!.getState().time),{timeout:90000}).toBeGreaterThan(start+6);
+  await page.getByRole("button",{name:"暂停仿真"}).click();
+  await page.locator("canvas").screenshot({path:"artifacts/scanned-private/review/walking.png"});
+  const state=await page.evaluate(()=>window.human!.getState());
+  expect(state.locomotion!.mode).toBe("walk");
+  expect(state.locomotion!.steps).toBeGreaterThanOrEqual(2);
+  expect(state.locomotion!.pelvis[2]).toBeGreaterThan(.89);
+  expect(state.joints.every(j => Number.isFinite(j.actual))).toBe(true);
+  await page.getByRole("button",{name:"继续仿真"}).click();
+  await expect.poll(()=>page.evaluate(()=>Math.max(...window.human!.getState().locomotion!.footHeight)),{timeout:15000,intervals:[100]}).toBeGreaterThan(.012);
+  await page.getByRole("button",{name:"暂停仿真"}).click();
+  await page.locator("canvas").screenshot({path:"artifacts/scanned-private/review/walking-swing.png"});
+  const video=page.video();await page.close();
+  await video?.saveAs("artifacts/scanned-private/review/motion-control.webm");
+});
